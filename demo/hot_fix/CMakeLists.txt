@@ -10,19 +10,19 @@ set(ROOT_PATH ${CUR_PATH}/../../)
 set(COMMON_DIR ${ROOT_PATH}/common/)
 
 # set flag.
-add_compile_options(-g -O0)
-add_link_options(-g)
+add_compile_options(-g -O0 -fPIC)
+add_link_options(-g -rdynamic -fPIC)
 
 # set include directory.
 include_directories(.)
 include_directories(${COMMON_DIR})
 
 # set source code file.
-file(GLOB SERVICE_FILES s*.cpp)
-file(GLOB PATCH_FILES p*.cpp)
+file(GLOB SERVICE_FILES s*.c)
+file(GLOB PATCH_FILES p*.c)
 
 # set target.
 add_executable(${PROJECT_NAME} ${SERVICE_FILES})
 add_library(${PROJECT_NAME}.patch SHARED ${PATCH_FILES})
 
-target_link_libraries(${PROJECT_NAME} pthread)
+target_link_libraries(${PROJECT_NAME} pthread dl)

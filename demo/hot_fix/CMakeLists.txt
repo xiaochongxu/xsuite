@@ -1,0 +1,26 @@
+# require cmake version.
+cmake_minimum_required(VERSION 3.2)
+
+# project name.
+project(hot_fix)
+
+# set path.
+set(CUR_PATH .)
+set(ROOT_PATH ${CUR_PATH}/../../)
+set(COMMON_DIR ${ROOT_PATH}/common/)
+
+# set flag.
+add_compile_options(-g -O0)
+add_link_options(-g)
+
+# set include directory.
+include_directories(.)
+include_directories(${COMMON_DIR})
+
+# set source code file.
+file(GLOB SERVICE_FILES s*.cpp)
+file(GLOB PATCH_FILES p*.cpp)
+
+# set target.
+add_executable(${PROJECT_NAME} ${SERVICE_FILES})
+add_library(${PROJECT_NAME}.patch SHARED ${PATCH_FILES})

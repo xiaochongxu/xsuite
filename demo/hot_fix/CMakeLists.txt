@@ -24,3 +24,5 @@ file(GLOB PATCH_FILES p*.cpp)
 # set target.
 add_executable(${PROJECT_NAME} ${SERVICE_FILES})
 add_library(${PROJECT_NAME}.patch SHARED ${PATCH_FILES})
+
+target_link_libraries(${PROJECT_NAME} pthread)

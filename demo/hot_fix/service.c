@@ -10,8 +10,7 @@
 #include <sys/mman.h>
 #include "service.h"
 
-#define PAGE_SHIFT 12
-#define PAGE_SIZE  1 << 12
+#define PAGE_SIZE  0x1000
 #define PAGE_MASK  ~(PAGE_SIZE - 1)
 
 uint32_t g_heartbeat_count = 0;
@@ -40,7 +39,7 @@ void load_patch(int sig)
             break;
         }
 
-        mprotect((void*)((uintptr_t)old_func & PAGE_MASK), PAGE_SIZE * 16, PROT_READ|PROT_WRITE|PROT_EXEC);
+        mprotect((void*)((uintptr_t)old_func & PAGE_MASK), PAGE_SIZE * 8, PROT_READ|PROT_WRITE|PROT_EXEC);
 
         memset(old_func, 0x48, 1);
         memset(old_func + 1, 0xb8, 1);
